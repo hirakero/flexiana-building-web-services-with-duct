@@ -1,6 +1,8 @@
 (ns sms.domain.message.impl
-  (:require [sms.domain.message.service :refer [MessageService]]))
+  (:require [sms.domain.message.sender :as sender]
+            [sms.domain.message.service :refer [MessageService]]))
 
-(defrecord MessageServiceImpl []
+(defrecord MessageServiceImpl [sender]
   MessageService
-  (send! [_ message]))
+  (send! [_ request]
+    (sender/send! sender request)))
